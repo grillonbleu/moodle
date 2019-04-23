@@ -61,5 +61,15 @@ function xmldb_folder_upgrade($oldversion) {
     // Automatically generated Moodle v3.6.0 release upgrade line.
     // Put any upgrade step following this.
 
+    // Add showdownloadfolder option.
+    if ($oldversion < 2019042300) {
+        $table = new xmldb_table('folder');
+        $field = new xmldb_field('maxsize', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0', 'showdownloadfolder');
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field, 'maxsize');
+        }
+        upgrade_mod_savepoint(true, 2019042300, 'folder');
+    }
+
     return true;
 }

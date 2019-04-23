@@ -34,4 +34,8 @@ if ($ADMIN->fulltree) {
     $settings->add(new admin_setting_configtext('folder/maxsizetodownload',
         get_string('maxsizetodownload', 'folder'),
         get_string('maxsizetodownload_help', 'folder'), '', PARAM_INT));
+
+    $settings->add(new admin_setting_configtext('folder/defaultmaxsize',
+        get_string('defaultmaxsize', 'folder'),
+        get_string('defaultmaxsize_help', 'folder'), 0, PARAM_INT));
 }

@@ -68,6 +68,12 @@ class mod_folder_mod_form extends moodleform_mod {
         $mform->addElement('advcheckbox', 'showdownloadfolder', get_string('showdownloadfolder', 'folder'));
         $mform->addHelpButton('showdownloadfolder', 'showdownloadfolder', 'mod_folder');
         $mform->setDefault('showdownloadfolder', true);
+
+        // Adding option to limit folder total size
+        $mform->addElement('text', 'maxsize', get_string('maxsize', 'mod_folder'), array('size'=>'48'));
+        $mform->setType('maxsize', PARAM_INT);
+        $mform->setDefault('maxsize', $config->defaultmaxsize);
+        $mform->addHelpButton('maxsize', 'maxsize', 'mod_folder');
         //-------------------------------------------------------
         $this->standard_coursemodule_elements();
 

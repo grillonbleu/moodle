@@ -42,4 +42,20 @@ class mod_folder_edit_form extends moodleform {
 
         $this->set_data($data);
     }
+
+    function validation($data, $files) {
+        $errors = [];
+        $options = $this->_customdata['options'];
+        if($options['maxsize'] != 0 &&
+            file_is_draft_area_limit_reached($data['files_filemanager'], $options['maxsize'] * 1024 * 1024)) {
+            $bytes_submitted = file_get_draft_area_info($data['files_filemanager'])['filesize_without_references'];
+            $submitted = round($bytes_submitted / (1024 * 1024), 2);
+            $error_info = (object)[
+                'max' => $options['maxsize'],
+                'submitted' => $submitted
+            ];
+            $errors['files_filemanager'] = get_string('maxsize_error', 'mod_folder', $error_info);
+        }
+        return $errors;
+    }
 }
